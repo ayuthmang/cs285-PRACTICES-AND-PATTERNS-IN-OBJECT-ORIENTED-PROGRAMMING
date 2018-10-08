@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Display Flights</title>
+
+  <link rel="stylesheet" href="node_modules/bootswatch/dist/darkly/bootstrap.min.css">
+</head>
+
+<body>
+
+  <!-- #region Header -->
+  <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <!-- <h4>Display Flights</h4> -->
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Display Flights <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="searchFlights.html">Search Flights</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- #endregion Header -->
+
+  <!-- #region Content -->
+  <div class="container">
+    <div class="row mt-2">
+      <div class="col">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#listView">List View</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active show" data-toggle="tab" href="#matrixView">Matrix View</a>
+          </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade mt-2" id="listView">
+            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro
+              synth
+              master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
+              keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip
+              placeat
+              salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+          </div>
+          <div class="tab-pane fade active show mt-2" id="matrixView">
+            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1
+              labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
+              beer
+              twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+              cillum
+              PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- #endregion Content -->
+
+  <!-- #region Scripts -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="node_modules/axios/dist/axios.min.js"></script>
+  <!-- #endregion Scripts -->
+</body>
+
+</html>

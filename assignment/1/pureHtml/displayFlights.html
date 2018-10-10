@@ -116,12 +116,10 @@
     const getFlights = () => axios.get(getFlightsUrl).then(res => res.data).then(res => res);
 
     $(() => {
-      // setFlightTable();
       getFlights().then(res => {
         setFlightTable(res.data)
       })
     })
-
     // })()
   </script>
   <!-- #endregion Page script -->

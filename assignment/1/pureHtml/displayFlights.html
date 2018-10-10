@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Display Flights</title>
 
+  <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="node_modules/bootswatch/dist/darkly/bootstrap.min.css">
 </head>
 
@@ -56,12 +57,27 @@
               salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
           </div>
           <div class="tab-pane fade active show mt-2" id="matrixView">
-            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1
-              labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
-              beer
-              twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-              cillum
-              PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+            <p id="allFlightsText">x of x flights shown-one way</p>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Price</th>
+                  <th scope="col">Airline</th>
+                  <th scope="col">Take-off</th>
+                  <th scope="col">Landing</th>
+                  <th scope="col">Stop Duration</th>
+                </tr>
+              </thead>
+              <tbody id="tableMatrixViewContent">
+                <!-- <tr>
+                  <th scope="row">Default</th>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                </tr> -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -74,6 +90,41 @@
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="node_modules/axios/dist/axios.min.js"></script>
   <!-- #endregion Scripts -->
+
+  <!-- #region Page script -->
+  <script>
+    // (() => {
+    const getFlightsUrl = 'httpg://api.myjson.com/bins/120nec'
+    const setFlightTable = (data) => {
+      console.log(data);
+      const tableMatrixViewContent = $('#tableMatrixViewContent')
+      let numFlights = 0;
+      data.map(item => {
+        tableMatrixViewContent.append(`
+          <tr>
+            <th scope="row">${item.airline}</th>
+            <td class='font-weight-bold text-danger'>$${item.price}</td>
+            <td>${item.takeoff}</td>
+            <td>${item.landing}</td>
+            <td>${item.stop_duration}</td>
+          </tr>
+        `)
+        ++numFlights
+      })
+      $('#allFlightsText').html(`<span class="badge badge-pill badge-secondary">${numFlights}</span> of <span class="badge badge-pill badge-secondary">${numFlights}</span> flights shown-one way`)
+    }
+    const getFlights = () => axios.get(getFlightsUrl).then(res => res.data).then(res => res);
+
+    $(() => {
+      // setFlightTable();
+      getFlights().then(res => {
+        setFlightTable(res.data)
+      })
+    })
+
+    // })()
+  </script>
+  <!-- #endregion Page script -->
 </body>
 
 </html>

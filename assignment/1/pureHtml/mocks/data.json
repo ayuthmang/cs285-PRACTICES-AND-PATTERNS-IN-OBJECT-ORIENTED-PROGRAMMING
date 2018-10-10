@@ -1,0 +1,27 @@
+{
+  "status": true,
+  "data": [
+    {
+      "price": 499,
+      "airline": "Singapore Airline",
+      "takeoff": "BKK 8:00",
+      "landing": "SG 12.00",
+      "stop_duration": "1(12)"
+    },
+    {
+      "price": 899,
+      "airline": "Lion Airline",
+      "takeoff": "BKK 11:00",
+      "landing": "SEA 12.00",
+      "stop_duration": "1(13)"
+
+    },
+    {
+      "price": 1499,
+      "airline": "Vietnam Airline",
+      "takeoff": "VNM 12:00",
+      "landing": "BKK 18:00",
+      "stop_duration": "1(17)"
+    }
+  ]
+}

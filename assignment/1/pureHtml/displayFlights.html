@@ -49,15 +49,10 @@
         </ul>
         <div id="myTabContent" class="tab-content">
           <div class="tab-pane fade mt-2" id="listView">
-            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro
-              synth
-              master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-              keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip
-              placeat
-              salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+            <p>ODO write content</p>
           </div>
           <div class="tab-pane fade active show mt-2" id="matrixView">
-            <p id="allFlightsText">x of x flights shown-one way</p>
+            <p id="txtFlightsResult">x of x flights shown-one way</p>
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -68,7 +63,7 @@
                   <th scope="col">Stop Duration</th>
                 </tr>
               </thead>
-              <tbody id="tableMatrixViewContent">
+              <tbody id="tableResultFlightsContent">
                 <!-- <tr>
                   <th scope="row">Default</th>
                   <td>Column content</td>
@@ -89,21 +84,20 @@
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="node_modules/axios/dist/axios.min.js"></script>
+  <script src="scripts/utils.js"></script>
   <!-- #endregion Scripts -->
 
   <!-- #region Page script -->
   <script>
     // (() => {
-    const getFlightsUrl = 'httpg://api.myjson.com/bins/120nec'
     const setFlightTable = (data) => {
-      console.log(data);
-      const tableMatrixViewContent = $('#tableMatrixViewContent')
+      const tableResultFlightsContent = $('#tableResultFlightsContent')
       let numFlights = 0;
       data.map(item => {
-        tableMatrixViewContent.append(`
+        tableResultFlightsContent.append(`
           <tr>
-            <th scope="row">${item.airline}</th>
-            <td class='font-weight-bold text-danger'>$${item.price}</td>
+            <th scope='row' class='font-weight-bold text-danger'>$${item.price}</td>
+            <td>${item.airline}</th>
             <td>${item.takeoff}</td>
             <td>${item.landing}</td>
             <td>${item.stop_duration}</td>
@@ -111,9 +105,8 @@
         `)
         ++numFlights
       })
-      $('#allFlightsText').html(`<span class="badge badge-pill badge-secondary">${numFlights}</span> of <span class="badge badge-pill badge-secondary">${numFlights}</span> flights shown-one way`)
+      $('#txtFlightsResult').html(`<span class="badge badge-pill badge-secondary">${numFlights}</span> of <span class="badge badge-pill badge-secondary">${numFlights}</span> flights shown-one way`)
     }
-    const getFlights = () => axios.get(getFlightsUrl).then(res => res.data).then(res => res);
 
     $(() => {
       getFlights().then(res => {

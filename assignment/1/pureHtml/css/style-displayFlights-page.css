@@ -1,1 +1,12 @@
 /* No need to add any styles because we can handled it with Bootstrap */
+
+html, body {
+  min-height: 100vh;
+}
+
+.flex {
+  height: calc(90vh);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

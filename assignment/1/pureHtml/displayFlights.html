@@ -26,7 +26,7 @@
       <ul class="navbar-nav mr-auto">
         <!-- <h4>Display Flights</h4> -->
         <li class="nav-item active">
-          <a class="nav-link" href="displayFlights.html">Display Flights <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="displayFlights.html">Display Flights></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="searchFlights.html">Search Flights</a>
@@ -42,7 +42,8 @@
       <div class="col">
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#listView">List View</a>
+            <a class="nav-link" data-toggle="tab" href="#" onclick="window.location.href = 'listFlights.html'">List
+              View</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active show" data-toggle="tab" href="#matrixView">Matrix View</a>
@@ -54,7 +55,7 @@
           </div>
           <div class="tab-pane fade active show mt-2" id="matrixView">
             <p id="txtFlightsResult">x of x flights shown-one way</p>
-            <table class="table table-hover">
+            <table class="table table-hover" id="tableResultFlights">
               <thead>
                 <tr>
                   <th scope="col">Price</th>
@@ -97,7 +98,7 @@
       data.map(item => {
         tableResultFlightsContent.append(`
           <tr>
-            <th scope='row' class='font-weight-bold text-danger'>$${item.price}</td>
+            <th scope='row' class='font-weight-bold text-danger' style='font-size: 24px'>$${item.price}</td>
             <td>${item.airline}</th>
             <td>${item.takeoff}</td>
             <td>${item.landing}</td>
@@ -106,7 +107,29 @@
         `)
         ++numFlights
       })
-      $('#txtFlightsResult').html(`<span class="badge badge-pill badge-secondary">${numFlights}</span> of <span class="badge badge-pill badge-secondary">${numFlights}</span> flights shown-one way`)
+      $('#txtFlightsResult').html(`<span class="badge badge-pill badge-secondary bg-success">${numFlights}</span> of <span class="badge badge-pill badge-secondary">${numFlights}</span> flights shown-one way`)
+
+      $('#tableResultFlights').after('<div id="nav"></div>');
+      var rowsShown = 3;
+      var rowsTotal = $('#tableResultFlights tbody tr').length;
+      var numPages = rowsTotal / rowsShown;
+      for (i = 0; i < numPages; i++) {
+        var pageNum = i + 1;
+        $('#nav').append('<a href="#" rel="' + i + '">' + pageNum + '</a> ');
+      }
+      $('#tableResultFlights tbody tr').hide();
+      $('#tableResultFlights tbody tr').slice(0, rowsShown).show();
+      $('#nav a:first').addClass('active');
+      $('#nav a').bind('click', function () {
+
+        $('#nav a').removeClass('active');
+        $(this).addClass('active');
+        var currPage = $(this).attr('rel');
+        var startItem = currPage * rowsShown;
+        var endItem = startItem + rowsShown;
+        $('#tableResultFlights tbody tr').css('opacity', '0.0').hide().slice(startItem, endItem).
+          css('display', 'table-row').animate({ opacity: 1 }, 300);
+      });
     }
 
     $(() => {

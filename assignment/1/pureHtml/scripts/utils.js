@@ -1,5 +1,6 @@
 const urls = {
-  getFlights: 'https://api.myjson.com/bins/120nec'
+  // getFlights: 'https://api.myjson.com/bins/120nec'
+  getFlights: 'https://api.myjson.com/bins/10ivio'
 };
 
 const getFlights = () =>

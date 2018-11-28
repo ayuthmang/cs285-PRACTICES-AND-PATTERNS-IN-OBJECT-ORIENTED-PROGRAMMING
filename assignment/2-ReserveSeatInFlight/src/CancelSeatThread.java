@@ -1,12 +1,15 @@
+import com.sun.corba.se.spi.orbutil.threadpool.ThreadPoolManager;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class CancelSeatThread extends Thread {
 
     private AFlight flight;
-    private String passengerName;
     private String seatNO;
 
-    public CancelSeatThread(AFlight flight, String passengerName, String seatNO) {
+    public CancelSeatThread(AFlight flight, String seatNO) {
         this.flight = flight;
-        this.passengerName = passengerName;
         this.seatNO = seatNO;
     }
 
@@ -15,11 +18,9 @@ public class CancelSeatThread extends Thread {
         super.run();
         try {
             this.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            flight.cancelSeatForPassanger(flight.getFlightNO(), seatNO);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BuyFlightTicketThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-
-    //    ให้สร้าง Thread อีกหนึ่ง Thread เพื่อ Sleep เป็นเวลา 1 วินาที เพื่อ Cancel การจองที่นั่ง หมายเลข A3 ที่มีการจอง ให้เป็น Not Specified
 }

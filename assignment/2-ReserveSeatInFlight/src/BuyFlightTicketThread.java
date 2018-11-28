@@ -16,27 +16,20 @@ public class BuyFlightTicketThread extends Thread {
     private String passengerName;
     private String seatNO;
 
-    public BuyFlightTicketThread() {
-    }
-
     public BuyFlightTicketThread(AFlight flight, String passengerName, String seatNO) {
         this.flight = flight;
         this.passengerName = passengerName;
         this.seatNO = seatNO;
     }
 
-
     @Override
     public void run() {
         try {
             Thread.sleep(100);
-            flight.reserveSeatForPassenger(passengerName,
-                    flight.getFlightNO(), seatNO);
+            flight.reserveSeatForPassenger(passengerName, flight.getFlightNO(), seatNO);
         } catch (InterruptedException ex) {
             Logger.getLogger(BuyFlightTicketThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }
 
 }

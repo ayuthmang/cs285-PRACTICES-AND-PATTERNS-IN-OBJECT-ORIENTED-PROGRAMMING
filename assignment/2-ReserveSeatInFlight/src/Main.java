@@ -22,8 +22,8 @@ public class Main {
                 Thread presidentReserveSeatThread = new BuyFlightTicketThread(f1, "ประยุทธ์", "A1");
                 presidentReserveSeatThread.setName("Reserve for Thailand's Prime Minister");
 
-                Thread cancelSeatThread = new CancelSeatThread(f1, "Anonymous", "A1");
-                cancelSeatThread.setName("Cancel for anonymous");
+                Thread cancelSeatThread = new CancelSeatThread(f1, "A1");
+                cancelSeatThread.setName("Cancel a seat thread");
 
                 presidentReserveSeatThread.start();
                 instructorReserveSeatThread.start();
@@ -42,8 +42,6 @@ public class Main {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-
     }
 
 }

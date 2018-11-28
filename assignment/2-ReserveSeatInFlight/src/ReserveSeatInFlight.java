@@ -20,12 +20,11 @@ public class ReserveSeatInFlight {
             try {
                 System.out.println("Round " + i + ":");
                 Flight flight1 = new Flight("TG930");
-                ReserveSeatThread reservation1
-                        = new ReserveSeatThread("พี่ประยุทธ์", flight1, "A1");
+                ReserveSeatThread reservation1 = new ReserveSeatThread("พี่ประยุทธ์", flight1, "A1");
                 reservation1.setName("Reserve for PM");
                 reservation1.start();
-                ReserveSeatThread reservation2
-                        = new ReserveSeatThread("Songsakdi", flight1, "A1");
+
+                ReserveSeatThread reservation2 = new ReserveSeatThread("Songsakdi", flight1, "A1");
                 reservation2.setName("Reserve for Ajarn");
                 reservation2.start();
 
@@ -36,9 +35,7 @@ public class ReserveSeatInFlight {
             } catch (InterruptedException ex) {
                 Logger.getLogger(ReserveSeatInFlight.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
-
     }
 
 }

@@ -30,14 +30,13 @@ public class Flight {
         this.flightNO = flightNO;
     }
 
-
     public synchronized void reserveSeatForPassenger(String passengerName, String flightNO, String seatNO) {
-        if (flightNO.equals(this.flightNO) &&
-                seats.get(seatNO).equals("Not Specified")) {
+        if (flightNO.equals(this.flightNO) && seats.get(seatNO).equals("Not Specified")) {
             try {
                 System.out.println("Reserving a seat for " + passengerName + ", then going to sleep.");
                 Thread.sleep((int) (Math.random() * 10));
                 seats.put(seatNO, passengerName);
+                this.showSeatsStatus();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Flight.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -45,7 +44,6 @@ public class Flight {
             System.out.println("Seat " + seatNO + " is reserved for " + seats.get(seatNO));
         }
     }
-
 
     public void showSeatsStatus() {
         for (Map.Entry<String, String> entrySet : seats.entrySet()) {
@@ -58,6 +56,5 @@ public class Flight {
     public String getFlightNO() {
         return flightNO;
     }
-
 
 }

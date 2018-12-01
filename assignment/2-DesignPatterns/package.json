@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "serve": "cross-env DEBUG=2-designpatterns:* nodemon ./bin/www"
+    "serve": "cross-env DEBUG=2-designpatterns:* ts-node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -16,5 +15,9 @@
     "node-sass-middleware": "0.11.0",
     "nodemon": "^1.18.7",
     "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.1"
   }
 }

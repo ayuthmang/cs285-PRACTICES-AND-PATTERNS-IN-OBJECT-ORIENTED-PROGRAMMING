@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	.container
+		.row.mt-2
+			.col
+				ul.nav.nav-tabs
+					li.nav-item
+						a.nav-link.active(data-toggle='tab' href='#listView') List View
+					li.nav-item
+						a.nav-link.show(data-toggle='tab' href='#' onclick="window.location.href = 'displayFlights.html'") Matrix View
+				#myTabContent.tab-content
+					#listView.tab-pane.fade.mt-2.show.active
+						p ODO write content
+					.tab-pane.fade.mt-2

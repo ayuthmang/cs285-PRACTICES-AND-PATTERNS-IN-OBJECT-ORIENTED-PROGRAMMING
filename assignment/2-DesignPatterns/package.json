@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "serve": "cross-env DEBUG=2-designpatterns:* ts-node ./bin/www"
+    "serve": "nodemon --watch './**/*.ts' --exec 'cross-env DEBUG=app:* ts-node' ./bin/www.ts"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "cookie-parser": "~1.4.3",
     "cross-env": "^5.2.0",
     "debug": "~2.6.9",

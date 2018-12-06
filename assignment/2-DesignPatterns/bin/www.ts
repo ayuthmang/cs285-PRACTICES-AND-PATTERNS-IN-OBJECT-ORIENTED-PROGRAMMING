@@ -9,7 +9,7 @@ import Debug from "debug";
 
 import http from "http";
 
-const debug = Debug("2-designpatterns:server");
+const debug = Debug("app:server");
 
 /**
  * Get port from environment and store in Express.

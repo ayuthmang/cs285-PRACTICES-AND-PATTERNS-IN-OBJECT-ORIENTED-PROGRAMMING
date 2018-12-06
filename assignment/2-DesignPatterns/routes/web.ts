@@ -4,11 +4,15 @@ const router = express.Router();
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index", { title: "Flights" });
 });
 
-router.get("/flights", function(req, res, next) {
-  res.render("flights", { title: "The Flights" });
+router.get("/searchFlights", function(req, res, next) {
+  res.render("searchFlights", { title: "Search Flights" });
+});
+
+router.get("/listFlights", function(req, res, next) {
+  res.render("listFlights", { title: "List Flights" });
 });
 
 export default router;

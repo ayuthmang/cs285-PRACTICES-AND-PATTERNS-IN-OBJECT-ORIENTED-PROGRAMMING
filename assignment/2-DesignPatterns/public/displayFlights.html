@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://localhost:3000/stylesheets/style-displayFlight-page.css">
+
+</head>
+
+<body background="/images/plane.jpg" style="background-repeat:no-repeat;">
+
+  <div class="container"><br>
+  <a href="/">
+  <h1>&larr;Back</h1><br></a>
+  <div class="tab">
+    <button class="tablinks show active" onclick="view(event, 'ListView')">List View</button>
+    <button class="tablinks" onclick="view(event, 'MatrixView')">Matrix View</button>
+  </div>
+  <div id="ListView" class="tabcontent">
+    <p id="txtFlightsResult">x of x flights shown-one way</p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" title="price">Price</th>
+          <th scope="col">Airline</th>
+          <th scope="col">Take-off</th>
+          <th scope="col">Landing</th>
+          <th scope="col">Stop Duration</th>
+        </tr>
+      </thead>
+      <tbody id="tableResultFlightsContent">
+      </tbody>
+    </table>
+  </div>
+
+  <div id="MatrixView" class="tabcontent">
+    <p id="txtFlightsResult">x of x flights shown-one way</p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" title="price">Price</th>
+          <th scope="col">Airline</th>
+          <th scope="col">Take-off</th>
+          <th scope="col">Landing</th>
+          <th scope="col">Stop Duration</th>
+        </tr>
+      </thead>
+      <tbody id="tableResultFlightsContent">
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+  <script>
+    function view(evt, view) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(view).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    const urls = {
+      getFlights: 'https://api.myjson.com/bins/h3w0u'
+
+    };
+
+    const getFlights = () =>
+      axios
+        .get(urls.getFlights)
+        .then(res => res)
+        .then(res => res);
+
+  </script>
+  <script>
+    const setFlightTable = (data) => {
+      const tableResultFlightsContent = $('#tableResultFlightsContent')
+      let numFlights = 0;
+      data.map(item => {
+          console.log(item);
+        tableResultFlightsContent.append(`
+          <tr>
+            <th scope='row' class='font-weight-bold text-danger'>$${item.price}</td>
+            <td>${item.airline}</th>
+            <td>${item.takeOff}</td>
+            <td>${item.landing}</td>
+            <td>${item.stopDuration}<br>
+                <a data-toggle="collapse" data-target="#detail${numFlights}">detail</a>
+            </td>
+          </tr>
+          <tr id="detail${numFlights}" class="collapse">
+            <td>
+              <div class="container-fluid">
+                <h3><font color="blue">OUTBOUND</font></h3>
+                <div class="col-sm-12 ">
+                <div style="display: inline-block">
+                <span>Take-off: ${item.takeOff}</span>
+                <h5>AirPort: ${item.airline}</h5>
+                <p>-----------------------</p>
+                <span> Landing: ${item.landing}</span>
+                <h5>AirPort: ${item.airline}</h5>
+                <h5>Terminal: 2C</h5>
+                </div>
+              </div>
+              <a href="information/${item.id}"><button class="btn-primary btn btn-lg"> Select</button></a>
+            </td>
+          </tr>
+        `)
+        ++numFlights
+      })
+      $('#txtFlightsResult').html(`<span class="badge badge-pill badge-secondary">${numFlights}</span> of <span class="badge badge-pill badge-secondary">${numFlights}</span> flights shown-one way`)
+    }
+
+    $(() => {
+      getFlights().then(res => {
+        setFlightTable(res.data)
+        view(event, 'ListView') // expand listView
+
+      })
+    })
+  </script>
+</body>
+</html>

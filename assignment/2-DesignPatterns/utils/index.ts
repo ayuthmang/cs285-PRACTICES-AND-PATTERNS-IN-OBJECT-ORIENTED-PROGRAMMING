@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import url from './url';
+
 export const getFlights = () => {
   return axios.get("https://api.myjson.com/bins/h3w0u");
 };

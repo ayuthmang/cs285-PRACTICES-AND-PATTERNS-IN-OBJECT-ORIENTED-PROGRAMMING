@@ -27,6 +27,7 @@ export default class BaseFlight implements Flight {
   }
 
   getPrice(): number {
-    return (this as any).price;
+    let price = (this as any).price * 1.07
+    return parseFloat(price.toFixed(2));
   }
 }

@@ -13,7 +13,7 @@ body(style=`background-image: url(${baseUrl}/images/plane.jpg); background-repea
     a(href='/displayFlights')
       h1 &larr;Back
       br
-    .tab(style='height: 550px')
+    .tab()
       .container-fluid
         .row.content
           .col-sm-8.sidenav
@@ -36,7 +36,7 @@ body(style=`background-image: url(${baseUrl}/images/plane.jpg); background-repea
                 .col-sm-3
                   input#lastName(type='text' value='lastName')
                 .col-sm-5
-                  select#birthDate
+                  select#birthDay
                     option(value='1') 1
                     option(value='2') 2
                     option(value='3') 3
@@ -145,7 +145,7 @@ body(style=`background-image: url(${baseUrl}/images/plane.jpg); background-repea
                     option(value='USA') United State
                     option(value='France') Japan
                 .col-sm-4
-                  select#expDate
+                  select#expDay
                     option(value='1') 1
                     option(value='2') 2
                     option(value='3') 3
@@ -240,10 +240,6 @@ body(style=`background-image: url(${baseUrl}/images/plane.jpg); background-repea
                     option(value='2016') 2016
                     option(value='2017') 2017
                     option(value='2018') 2018
-              .center
-                br
-                a(href='service.html')
-                  button(style='background-color: blue;color: white') Checkout
           .col-sm-4(style='background-color: #f1f1f1 ')
             .px-2(style='display: flex; background-color: orange; width: 100%; padding-left: 25%')
               h4 Payment Information
@@ -251,28 +247,119 @@ body(style=`background-image: url(${baseUrl}/images/plane.jpg); background-repea
               .col-sm-7
                 .col-sm-12 Flight:
               .col-sm-5
-                span #{(flightData.price).toFixed(2)} บาท
+                span $#{(flightData.price).toFixed(2)}
             .row-md.payment-item(style='display: flex;font-size: 150%;padding-top: 5%')
               .col-sm-7
                 .col-sm-12 Vat (7%):
               .col-sm-5
-                span #{(flightData.price * 0.07).toFixed(2)} บาท
+                span $#{(flightData.price * 0.07).toFixed(2)}
             .row-md.payment-item(style='display: flex;font-size: 150%;padding-top: 5%')
               .col-sm-4
               .col-sm-8
-                span รวม #{(flightData.price * 1.07).toFixed(2)} บาท
+                span รวม $#{(flightData.price * 1.07).toFixed(2)}
             br
+
+        .row.content
+          .col-sm-8.sidenav
+            h2 Extension Service
+            br
+            br
+            .well
+              .row
+                .col-sm-7
+                  .row
+                    .col-sm-1
+                      input#lifeInsurance(type='checkbox')
+                    .col-sm-10(style='font-size: 150%')
+                      front  ประกันชีวิตระหว่างการเดินทาง
+                      br
+                      front  (ราคา $200)
+                      br
+                      br
+                      front(style='font-size: 75%') ครอบคลุมค่ารักษาจากประกันอุบัติเหตุ และเงินชดเชยกรณีเสียชีวิต
+                  br
+                .col-sm-5
+                  img(src=`${baseUrl}/images/travel.jpg` style='height:150px; width: 200; object-fit: contain')
+            .well
+              .row
+                .col-sm-7
+                  .row
+                    .col-sm-1
+                      input#stuffInsurance(type='checkbox')
+                    .col-sm-10(style='font-size: 150%')
+                      front  บริการรับประกันสัมภาระ
+                      br
+                      front  (ราคา $200)
+                      br
+                      br
+                      front(style='font-size: 75%') รับประกันสูญหาย หรือความเสียหายที่เกิดขึ้นกับสัมภาระ (สูงสุด 5,000 บาท)
+                  br
+                .col-sm-5
+                  img(src=`${baseUrl}/images/missing.jpg` style='height:150px; width: 250; object-fit: contain')
+
+        .div
+          a#btnCheckout
+            button(style='background-color: blue;color: white') Checkout
     script(src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js')
     script.
-      //- const title = $('#title');
-      //- const firstName = $('#firstName');
-      //- const lastName = $('#lastName');
-      //- const passportNo = $('#passportNo');
-      //- const country = $('#country');
 
-      //- const inputIds = ['#title', '#firstName', '#lastName', '#passportNo', '#countr']
-      //- inputIds.forEach(item => {
+      const flightData = !{JSON.stringify(flightData)}
 
-      //- })
+      const apiUrl = 'http://localhost:3000/api';
+      const checkoutUrl = `${apiUrl}/flights/${flightData.id}/checkout`;
+
+      const title = $('#title');
+      const firstName = $('#firstName');
+      const lastName = $('#lastName');
+      const passportNo = $('#passportNo');
+      const country = $('#country');
+      const birthDay = $('#birthDay');
+      const birthMonth = $('#birthMonth');
+      const birthYear = $('#birthYear');
+      const expDay = $('#expDay');
+      const expMonth = $('#expMonth');
+      const expYear = $('#expYear');
+      const stuffInsurance = $('#stuffInsurance');
+      const lifeInsurance = $('#lifeInsurance');
+      const btnCheckout = $('#btnCheckout');
+
+      const getInputs = () => {
+        return {
+          title: title.val(),
+          firstName: firstName.val(),
+          lastName: lastName.val(),
+          passportNo: passportNo.val(),
+          country: country.val(),
+          birthDay: birthDay.val(),
+          birthMonth: birthMonth.val(),
+          birthYear: birthYear.val(),
+          expDay: expDay.val(),
+          expMonth: expMonth.val(),
+          expYear: expYear.val(),
+          insurance: {
+            life: lifeInsurance.is(':checked'),
+            stuff: stuffInsurance.is(':checked')
+          }
+        }
+      }
+
+      const checkout = () => {
+        return axios.post(checkoutUrl, getInputs());
+      }
+
+      btnCheckout.on('click', async () => {
+        const result = (await checkout());
+        const { birthDate, country, expDate, firstName, lastName, passportNo, price, title } = result.data;
+        alert(`
+          คำนำหน้า: ${title}
+          ชื่อจริง: ${firstName}
+          นามสกุล: ${lastName}
+          วันเกิด: ${birthDate}
+          ประเทศ: ${country}
+          วันหมดอายุของหนังสือเดินทาง: ${expDate}
+          เลขประจำหนังสือเดินทาง: ${passportNo}
+          ราา: ${price}
+        `);
+      })

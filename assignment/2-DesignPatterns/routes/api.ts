@@ -33,10 +33,24 @@ router.get("/flights/:id", async function(req, res, next) {
   }
 });
 
-router.get("/flights/:id/checkout", async function(req, res, next) {
+router.post("/flights/:id/checkout", async function(req, res, next) {
   const { id } = req.params;
-  const { firstName, lastName, insurance } = req.body;
-  debug(id, insurance);
+  const {
+    firstName,
+    lastName,
+    insurance,
+    title,
+    passportNo,
+    country,
+    birthDay,
+    birthMonth,
+    birthYear,
+    expDay,
+    expMonth,
+    expYear
+  } = req.body;
+  const birthDate = new Date(birthDay, birthMonth, birthYear);
+  const expDate = new Date(expYear, expMonth, expDay);
 
   let flightData = await getFlightsById(id);
   if (flightData.length <= 0) {
@@ -63,7 +77,16 @@ router.get("/flights/:id/checkout", async function(req, res, next) {
   const aFlight = flightFactory.createFlight({ flightType, price });
 
   debug(aFlight.getPrice());
-  let response = { firstName, lastName, price: aFlight.getPrice() };
+  let response = {
+    firstName,
+    lastName,
+    price: aFlight.getPrice(),
+    title,
+    passportNo,
+    country,
+    birthDate,
+    expDate
+  };
   res.send(response);
 });
 

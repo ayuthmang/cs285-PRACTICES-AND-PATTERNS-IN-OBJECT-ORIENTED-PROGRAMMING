@@ -6,7 +6,7 @@
     "serve": "nodemon --watch './**/*.ts' --exec 'cross-env DEBUG=app:* ts-node' ./bin/www.ts"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bootswatch": "^4.1.3",
     "cookie-parser": "~1.4.3",
     "cross-env": "^5.2.0",
